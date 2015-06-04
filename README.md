@@ -27,7 +27,7 @@ to simply push the master branch and have that result in deployment.
 The service receives a push from Github.  It verifies the request is legitimate via the shared
 secret.  If verified, it ensures the repository is owned by a whitelisted owner.
 
-If that succeeds, it kicks off a Sidekiq background worker.  The worker currently clones the
+If that succeeds, it kicks off a Sidekiq background job.  The worker currently clones the
 repository to a temporary directory, thereby creating a fresh copy everytime.  This may change to
 pull strategy when it becomes cumbersome, currently it is not and keeps things simpler.
 
