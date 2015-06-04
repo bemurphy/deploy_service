@@ -24,7 +24,7 @@ If that succeeds, it kicks off a Sidekiq background worker.  The worker currentl
 repository to a temporary directory, thereby creating a fresh copy everytime.  This may change to
 pull strategy when it becomes cumbersome, currently it is not and keeps things simpler.
 
-Once the repository is clones, the worker invokes a clean Bundler environment, changes into the
+Once the repository is cloned, the worker invokes a clean Bundler environment, changes into the
 repository directory, and invokes the `deploy.sh` script found at the root.
 
 ## Example Deploy Script
