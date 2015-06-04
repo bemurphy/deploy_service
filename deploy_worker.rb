@@ -1,7 +1,7 @@
 require "git"
 require "sidekiq"
 
-class BuildWorker
+class DeployWorker
   DEPLOY_SCRIPT = "deploy.sh"
 
   include Sidekiq::Worker

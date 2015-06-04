@@ -1,6 +1,6 @@
 require "sinatra/base"
 require "rack/parser"
-require "./build_worker"
+require "./deploy_worker"
 
 class DeployService < Sinatra::Base
   GITHUB_SECRET = ENV.fetch('GITHUB_SECRET')
@@ -35,7 +35,7 @@ class DeployService < Sinatra::Base
       git_url      = params["repository"]["git_url"]
       project_name = params["repository"]["name"]
 
-      BuildWorker.perform_async(git_url, project_name)
+      DeployWorker.perform_async(git_url, project_name)
 
       "ok"
     else
