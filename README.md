@@ -1,5 +1,6 @@
 # deploy_service
-A simple deployment service.  This receives push webhooks from Github to `/push` and runs a `deploy.sh` script located in the rep.
+A simple deployment service for static websites.  This receives push webhooks from Github to
+`/push` and runs a `deploy.sh` script located in the rep.
 
 ## Assumptions
 
