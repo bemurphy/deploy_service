@@ -2,6 +2,13 @@
 A simple deployment service for static websites.  This receives push webhooks from Github to
 `/push` and runs a `deploy.sh` script located in the rep.
 
+## Why?
+
+The service provides very limited functionality, it basically translates a Github push event
+into a build script run.  The value of the service is that you need not distrubute AWS credentials
+to your team, and can rely on Github repo access for controlling access instead.  This enables you
+to simply push the master branch and have that result in deployment.
+
 ## Assumptions
 
 * The repo for deployment has a `deploy.sh` script in the root
