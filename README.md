@@ -14,3 +14,17 @@ A simple deployment service for static websites.  This receives push webhooks fr
 
 * Setup your ENV with a `GITHUB_SECRET`
 * Create a webhook to post to `http://yourapp.herokuapp.com/push` or wherever with that secret
+
+## Example Deploy Script
+
+Here's a small example deploy script for middleman to s3:
+
+```shell
+#!/bin/sh
+
+set -e
+
+bundle
+bundle exec middleman build
+bundle exec middleman s3_sync
+```
