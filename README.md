@@ -25,7 +25,9 @@ repository to a temporary directory, thereby creating a fresh copy everytime.  T
 pull strategy when it becomes cumbersome, currently it is not and keeps things simpler.
 
 Once the repository is cloned, the worker invokes a clean Bundler environment, changes into the
-repository directory, and invokes the `deploy.sh` script found at the root.
+repository directory, and invokes the `deploy.sh` script found at the root.  That script will
+typically be responsible for executing a `middleman build` followed by a `middleman s3_sync`
+but may contain custom tweaks as well.
 
 ## Example Deploy Script
 
