@@ -1,0 +1,23 @@
+<% @deploy_results.each do |deploy_result| %>
+  <div class="row deploy-result" style="overflow: hidden;">
+    <div class="col-md-12">
+      <div class="panel <%= panel_class(deploy_result.success?) %>">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <span class="git-url">
+              <%= deploy_result.git_url %>
+            </span>
+            <span class="pull-right" style="font-weight: 200;">
+              <a href="<%= deploy_result.repo_url %>" target="_blank">
+                <%= deploy_result.git_short_sha  %> - <%= deploy_result.created_at %>
+              </a>
+            </span>
+          </h3>
+        </div>
+        <div class="panel-body hide">
+          <%= nl2br(ansi2html(deploy_result.success? ? deploy_result.output : deploy_result.error)) %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

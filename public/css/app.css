@@ -1,0 +1,11 @@
+body {
+  padding-top: 20px;
+}
+
+.deploy-result .git-url {
+  cursor: pointer;
+}
+
+.term-fg-green { color: green; }
+.term-fg-blue { color: blue; }
+.term-fg-red { color: red; }

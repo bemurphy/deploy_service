@@ -1,4 +1,4 @@
-require "./deploy_service"
+require "./server"
 require 'sidekiq/web'
 
-run Rack::URLMap.new('/' => DeployService, '/sidekiq' => Sidekiq::Web)
+run Rack::URLMap.new('/' => Server, '/sidekiq' => Sidekiq::Web)

@@ -1,12 +1,28 @@
 require "sinatra/base"
 require "rack/parser"
+require "./deploy_result"
 require "./deploy_worker"
+require "json"
+require "./ansi2html"
 
-class DeployService < Sinatra::Base
+class Server < Sinatra::Base
   GITHUB_SECRET = ENV.fetch('GITHUB_SECRET')
   WHITELISTED_OWNERS = %w[bemurphy codegangsta Kajabi]
 
   use Rack::Parser
+
+  def nl2br(str)
+    str.to_s.gsub(/\n|\r\n/, "<br>")
+  end
+
+  def ansi2html(str)
+    Ansi2html.convert(str)
+  end
+
+  def panel_class(success)
+    success ? "panel-success" : "panel-danger"
+    # rand(0) > 0.5 ? "panel-success" : "panel-danger"
+  end
 
   def verify_signature(payload_body)
     signature = 'sha1=' + OpenSSL::HMAC.hexdigest(
@@ -32,14 +48,17 @@ class DeployService < Sinatra::Base
     verify_whitelisted_repository(params["repository"]["full_name"])
 
     if request.env["HTTP_X_GITHUB_EVENT"] == "push"
-      git_url      = params["repository"]["git_url"]
-      project_name = params["repository"]["name"]
-
-      DeployWorker.perform_async(git_url, project_name)
-
+      DeployWorker.perform_async(params)
       "ok"
     else
       halt 422, "Unhandled event type"
     end
+  end
+
+  get "/" do
+    @deploy_results = DeployResult.all("deploy_results")
+    @git_urls = DeployResult.all_git_urls
+
+    erb :index
   end
 end
