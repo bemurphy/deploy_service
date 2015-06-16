@@ -21,7 +21,6 @@ class Server < Sinatra::Base
 
   def panel_class(success)
     success ? "panel-success" : "panel-danger"
-    # rand(0) > 0.5 ? "panel-success" : "panel-danger"
   end
 
   def verify_signature(payload_body)
