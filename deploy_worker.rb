@@ -4,6 +4,10 @@ require "json"
 require "open3"
 require "sidekiq"
 
+Git.configure do |config|
+  config.git_ssh = File.join(File.dirname(__FILE__), "git_ssh.sh")
+end
+
 class DeployWorker
   DEPLOY_SCRIPT = "deploy.sh"
 
@@ -11,13 +15,13 @@ class DeployWorker
 
   def perform(payload)
     @payload      = payload
-    @git_url      = @payload["repository"]["git_url"]
+    @ssh_url      = @payload["repository"]["ssh_url"]
     @project_name = @payload["repository"]["name"]
 
     Dir.mktmpdir do |dir|
       repo_dir = File.join(dir, @project_name)
 
-      Git.clone(@git_url, @project_name, path: dir)
+      Git.clone(@ssh_url, @project_name, path: dir)
 
       unless File.exists?(File.join(repo_dir, DEPLOY_SCRIPT))
         raise "#{DEPLOY_SCRIPT} does not exist for project_name #{@project_name}"
