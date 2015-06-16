@@ -15,7 +15,8 @@ class DeployResult
 
   def self.with_redis
     begin
-      redis = Redis.new
+      url   = ENV.fetch("REDIS_URL", "redis://localhost:6379")
+      redis = Redis.new(url: url)
       yield redis
     ensure
       redis.disconnect!
